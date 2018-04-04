@@ -1,9 +1,12 @@
 // The state of the art
 
-use vecmath;
+pub mod math {
+    use vecmath;
+    pub type Position = vecmath::Vector2<f64>;
+}
 
 pub struct Model {
-    pub position: vecmath::Vector2<f64>,
+    pub position: math::Position,
     pub rotation: f64,
 }
 
