@@ -30,7 +30,7 @@ impl Controller {
                 self.game.set_center_mass(repositioned[0], repositioned[1])
             }
         });
-        e.render(|r| self.screen_dimensions = [r.draw_width as f64, r.draw_height as f64]);
+        e.render(|r| self.screen_dimensions = [f64::from(r.draw_width), f64::from(r.draw_height)]);
     }
 
     pub fn get_screen_center(&self) -> math::Vec2d {

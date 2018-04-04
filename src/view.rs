@@ -7,19 +7,18 @@ use graphics;
 
 use piston::input::RenderArgs;
 
+#[derive(Default)]
 pub struct View {
     dimensions: math::Vec2d,
 }
 
 impl View {
     pub fn new() -> View {
-        View {
-            dimensions: [0.0, 0.0],
-        }
+        Default::default()
     }
 
     pub fn update(&mut self, e: &RenderArgs) {
-        self.dimensions = [e.draw_width as f64, e.draw_height as f64];
+        self.dimensions = [f64::from(e.draw_width), f64::from(e.draw_height)];
     }
 
     pub fn draw<G: Graphics>(&self, controller: &super::Controller, c: &Context, g: &mut G) {

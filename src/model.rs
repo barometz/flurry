@@ -5,6 +5,7 @@ pub mod math {
     pub type Position = vecmath::Vector2<f64>;
 }
 
+#[derive(Default)]
 pub struct Model {
     pub position: math::Position,
     pub rotation: f64,
@@ -12,10 +13,7 @@ pub struct Model {
 
 impl Model {
     pub fn new() -> Model {
-        Model {
-            position: [0.0, 0.0],
-            rotation: 0.0,
-        }
+        Default::default()
     }
 
     pub fn set_center_mass(&mut self, x: f64, y: f64) {
