@@ -5,13 +5,13 @@ use model;
 use graphics::math;
 
 pub struct Controller {
-    pub game: super::Model,
+    pub game: model::Model,
     mouse_position: math::Vec2d,
     screen_dimensions: math::Vec2d,
 }
 
 impl Controller {
-    pub fn new(game: super::Model) -> Controller {
+    pub fn new(game: model::Model) -> Controller {
         Controller {
             game,
             mouse_position: [0.0, 0.0],

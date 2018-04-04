@@ -1,7 +1,5 @@
 // Takes a controller and presents it on the screen
 
-use graphics::types::Color;
-use graphics::character::CharacterCache;
 use graphics::{Context, Graphics};
 use graphics::math;
 use graphics::types;

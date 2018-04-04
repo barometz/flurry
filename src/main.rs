@@ -13,7 +13,7 @@ pub use view::View;
 pub use controller::Controller;
 
 use glutin_window::GlutinWindow;
-use piston::window::{Window, WindowSettings};
+use piston::window::WindowSettings;
 use piston::event_loop::{EventSettings, Events};
 use piston::input::RenderEvent;
 
@@ -27,7 +27,7 @@ fn main() {
 
     let model = Model::new();
     let mut controller = Controller::new(model);
-    let mut view = View::new();
+    let view = View::new();
 
     let mut gl = opengl_graphics::GlGraphics::new(opengl);
 
