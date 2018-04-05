@@ -28,7 +28,10 @@ impl View {
         const RED: [f32; 4] = [1.0, 0.0, 0.0, 1.0];
 
         let transform = self.get_world_transform(controller, c)
-            .trans(controller.game.position[0], controller.game.position[1])
+            .trans(
+                controller.game.position[0].value,
+                controller.game.position[1].value,
+            )
             .rot_rad(controller.game.rotation);
         graphics::polygon(RED, poly, transform, g);
     }
