@@ -1,5 +1,6 @@
 // The state of the art
 
+use std::f64;
 use uom::si::f64::*;
 use uom::si::length::meter;
 use uom::si::time::second;
@@ -12,9 +13,10 @@ type per_second = hertz;
 
 pub mod math {
     pub use graphics::math::*;
+    use std::f64;
+    use std::ops::Mul;
     use uom::si::f64::*;
     use vecmath;
-    use std::ops::Mul;
 
     pub fn normalized(v: Vec2d<Length>) -> Vec2d<f64> {
         let v: Vec2d = [v[0].value, v[1].value];
@@ -23,6 +25,16 @@ pub mod math {
         } else {
             vecmath::vec2_normalized(v)
         }
+    }
+
+    pub fn normalized_rad(r: f64) -> f64 {
+        let circle = 2.0 * f64::consts::PI;
+        let mut r = r % circle;
+        if r < 0.0 {
+            r += circle;
+        }
+
+        r
     }
 
     pub fn mul_scalar<T, U, V>(t: Vec2d<T>, u: U) -> Vec2d<V>
@@ -37,7 +49,7 @@ pub mod math {
 #[derive(Default, Debug)]
 pub struct Flier {
     pub position: math::Vec2d<Length>,
-    pub rotation: f64,
+    pub rotation: math::Matrix2d,
     pub target: math::Vec2d<Length>,
 
     top_speed: Velocity,
@@ -54,12 +66,25 @@ impl Flier {
     }
 
     pub fn progress(&mut self, dt: Time) {
-        let direction = math::normalized(math::sub(self.target, self.position));
-        let distance: Length = self.top_speed * dt;
+
+        let to_target = math::sub(self.target, self.position);
+
+        let direction = math::normalized(to_target);
+        let travel_distance: Length = self.top_speed * dt;
+        let actual_distance = to_target[0].hypot(to_target[1]);
+
+        let distance =
+            if actual_distance < travel_distance {
+                actual_distance
+            } else {
+                travel_distance
+            };
+
         let dp = math::mul_scalar(direction, distance);
 
+
         self.position = math::add(self.position, dp);
-        self.rotation += (self.top_rotational_speed * dt).value;
+        self.rotation = math::orient(dp[0].value, dp[1].value);
     }
 }
 

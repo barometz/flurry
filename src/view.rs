@@ -32,7 +32,7 @@ impl View {
                 controller.game.flier.position[0].value,
                 controller.game.flier.position[1].value,
             )
-            .rot_rad(controller.game.flier.rotation);
+            .append_transform(controller.game.flier.rotation);
         graphics::polygon(RED, poly, transform, g);
     }
 
