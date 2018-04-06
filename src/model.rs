@@ -46,7 +46,11 @@ pub struct Flier {
 
 impl Flier {
     pub fn new(top_speed: Velocity, top_rotational_speed: RotationalVelocity) -> Flier {
-        Flier { top_speed, top_rotational_speed, ..Default::default() }
+        Flier {
+            top_speed,
+            top_rotational_speed,
+            ..Default::default()
+        }
     }
 
     pub fn progress(&mut self, dt: Time) {
@@ -59,7 +63,7 @@ impl Flier {
     }
 }
 
-#[derive(Default,Debug)]
+#[derive(Default, Debug)]
 pub struct Model {
     pub flier: Flier,
 }
@@ -69,8 +73,8 @@ impl Model {
         Model {
             flier: Flier::new(
                 Velocity::new::<meter_per_second>(60.0),
-                RotationalVelocity::new::<per_second>(0.0)),
-            ..Default::default()
+                RotationalVelocity::new::<per_second>(0.0),
+            ),
         }
     }
 
