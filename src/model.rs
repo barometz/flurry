@@ -61,6 +61,7 @@ impl Flier {
         Flier {
             top_speed,
             top_rotational_speed,
+            rotation: math::orient(0.0, 1.0),
             ..Default::default()
         }
     }
@@ -81,7 +82,9 @@ impl Flier {
         let dp = math::mul_scalar(direction, distance);
 
         self.position = math::add(self.position, dp);
-        self.rotation = math::orient(dp[0].value, dp[1].value);
+        if !(dp[0].value == 0.0 && dp[1].value == 0.0) {
+            self.rotation = math::orient(dp[0].value, dp[1].value);
+        }
     }
 }
 
@@ -92,7 +95,7 @@ pub struct Model {
 
 impl Model {
     pub fn new() -> Model {
-        let s = vec![60.0, 30.0, 45.0];
+        let s = vec![100.0, 50.0, 80.0];
         let r = vec![0.0, 0.0, 0.0];
         let mut fliers: Vec<Flier> = Vec::new();
 
