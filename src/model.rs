@@ -66,22 +66,19 @@ impl Flier {
     }
 
     pub fn progress(&mut self, dt: Time) {
-
         let to_target = math::sub(self.target, self.position);
 
         let direction = math::normalized(to_target);
         let travel_distance: Length = self.top_speed * dt;
         let actual_distance = to_target[0].hypot(to_target[1]);
 
-        let distance =
-            if actual_distance < travel_distance {
-                actual_distance
-            } else {
-                travel_distance
-            };
+        let distance = if actual_distance < travel_distance {
+            actual_distance
+        } else {
+            travel_distance
+        };
 
         let dp = math::mul_scalar(direction, distance);
-
 
         self.position = math::add(self.position, dp);
         self.rotation = math::orient(dp[0].value, dp[1].value);
@@ -90,24 +87,34 @@ impl Flier {
 
 #[derive(Default, Debug)]
 pub struct Model {
-    pub flier: Flier,
+    pub fliers: Vec<Flier>,
 }
 
 impl Model {
     pub fn new() -> Model {
-        Model {
-            flier: Flier::new(
-                Velocity::new::<meter_per_second>(60.0),
-                RotationalVelocity::new::<per_second>(0.0),
-            ),
+        let s = vec![60.0, 30.0, 45.0];
+        let r = vec![0.0, 0.0, 0.0];
+        let mut fliers: Vec<Flier> = Vec::new();
+
+        for (s, r) in s.into_iter().zip(r) {
+            fliers.push(Flier::new(
+                Velocity::new::<meter_per_second>(s),
+                RotationalVelocity::new::<per_second>(r),
+            ));
         }
+
+        Model { fliers }
     }
 
     pub fn set_center_mass(&mut self, x: f64, y: f64) {
-        self.flier.target = [Length::new::<meter>(x), Length::new::<meter>(y)];
+        for flier in &mut self.fliers {
+            flier.target = [Length::new::<meter>(x), Length::new::<meter>(y)];
+        }
     }
 
     pub fn progress(&mut self, dt: f64) {
-        self.flier.progress(Time::new::<second>(dt));
+        for flier in &mut self.fliers {
+            flier.progress(Time::new::<second>(dt));
+        }
     }
 }
