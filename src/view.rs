@@ -29,10 +29,7 @@ impl View {
 
         for flier in &controller.game.fliers {
             let transform = self.get_world_transform(controller, c)
-                .trans(
-                    flier.position[0].value,
-                    flier.position[1].value,
-                )
+                .trans(flier.position[0].value, flier.position[1].value)
                 .append_transform(flier.rotation);
             graphics::polygon(RED, poly, transform, g);
         }

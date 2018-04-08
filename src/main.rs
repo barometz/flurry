@@ -8,6 +8,7 @@ extern crate vecmath;
 mod model;
 mod view;
 mod controller;
+mod math;
 
 pub use model::Model;
 pub use view::View;
@@ -20,7 +21,7 @@ use piston::input::RenderEvent;
 
 fn main() {
     let opengl = opengl_graphics::OpenGL::V3_2;
-    let mut window: GlutinWindow = WindowSettings::new("flurry", [200, 200])
+    let mut window: GlutinWindow = WindowSettings::new("flurry", [640, 480])
         .opengl(opengl)
         .exit_on_esc(true)
         .build()
