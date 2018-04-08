@@ -19,6 +19,8 @@ fn main() {
     let mut window: GlutinWindow = WindowSettings::new("flurry", [640, 480])
         .opengl(opengl)
         .exit_on_esc(true)
+        .samples(2)
+        .srgb(false)
         .build()
         .unwrap();
 
