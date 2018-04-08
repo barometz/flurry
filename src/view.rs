@@ -7,6 +7,8 @@ use graphics;
 
 use piston::input::RenderArgs;
 
+use controller::Controller;
+
 #[derive(Default)]
 pub struct View {
     dimensions: math::Vec2d,
@@ -21,7 +23,7 @@ impl View {
         self.dimensions = [f64::from(e.draw_width), f64::from(e.draw_height)];
     }
 
-    pub fn draw<G: Graphics>(&self, controller: &super::Controller, c: &Context, g: &mut G) {
+    pub fn draw<G: Graphics>(&self, controller: &Controller, c: &Context, g: &mut G) {
         use graphics::Transformed;
 
         let poly: types::Polygon = &[[-7.5, -5.0], [-7.5, 5.0], [7.5, 0.0]];
@@ -35,7 +37,7 @@ impl View {
         }
     }
 
-    fn get_world_transform(&self, controller: &super::Controller, ctx: &Context) -> math::Matrix2d {
+    fn get_world_transform(&self, controller: &Controller, ctx: &Context) -> math::Matrix2d {
         use graphics::Transformed;
 
         let screen_center = controller.get_screen_center();

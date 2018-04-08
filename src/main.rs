@@ -2,17 +2,12 @@ extern crate glutin_window;
 extern crate graphics;
 extern crate opengl_graphics;
 extern crate piston;
-extern crate uom;
-extern crate vecmath;
 
-mod model;
-mod view;
-mod controller;
-mod math;
+extern crate flurry;
 
-pub use model::Model;
-pub use view::View;
-pub use controller::Controller;
+use flurry::model::Model;
+use flurry::view::View;
+use flurry::controller::Controller;
 
 use glutin_window::GlutinWindow;
 use piston::window::WindowSettings;

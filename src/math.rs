@@ -15,12 +15,6 @@ pub fn normalized(v: Vec2d<Length>) -> Vec2d<f64> {
     }
 }
 
-/// Generic scalar multiplication.
-///
-/// #Examples
-/// ```
-/// assert_eq!([10, 15], mul_scalar([2, 3], 5));
-/// ```
 pub fn mul_scalar<T, U, V>(t: Vec2d<T>, u: U) -> Vec2d<V>
 where
     T: Copy + Mul<U, Output = V>,
