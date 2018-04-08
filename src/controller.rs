@@ -23,7 +23,12 @@ impl Controller {
         use piston::input::{Button, MouseButton};
 
         e.update(|update| self.game.progress(update.dt));
-        e.mouse_cursor(|x, y| self.mouse_position = [x, y]);
+        e.mouse_cursor(|x, y| {
+            // Only store non-zero position; 0,0 happens when the window gains focus
+            if x != 0.0 || y != 0.0 {
+                self.mouse_position = [x, y]
+            }
+        });
         e.press(|press| {
             if let Button::Mouse(MouseButton::Left) = press {
                 let repositioned = math::sub(self.mouse_position, self.get_screen_center());
