@@ -1,6 +1,6 @@
 //! Handles events and modifies the game state
 
-use piston::input::{GenericEvent, Key};
+use piston::input::{GenericEvent, Key, MouseButton};
 use model;
 use graphics::math;
 
@@ -23,8 +23,6 @@ impl Controller {
     }
 
     pub fn event<E: GenericEvent>(&mut self, e: &E) {
-        use piston::input::{Button, MouseButton};
-
         e.update(|update| self.game.progress(update.dt * self.speed));
         e.mouse_cursor(|x, y| {
             // Only store non-zero position; 0,0 happens when the window gains focus
@@ -33,13 +31,11 @@ impl Controller {
             }
         });
         e.press(|press| {
+            use piston::input::Button;
             match press {
-                Button::Mouse(MouseButton::Left) => {
-                    let repositioned = math::sub(self.mouse_position, self.get_screen_center());
-                    self.game.set_center_mass(repositioned[0], repositioned[1]);
-                },
+                Button::Mouse(button) => self.handle_mouse_event(button),
                 Button::Keyboard(key) => self.handle_key_event(key),
-                _ => ()
+                _ => (),
             }
         });
 
@@ -50,11 +46,25 @@ impl Controller {
         math::mul_scalar(self.screen_dimensions, 0.5)
     }
 
+    fn handle_mouse_event(&mut self, button: MouseButton) {
+        match button {
+            MouseButton::Left => {
+                let repositioned = math::sub(self.mouse_position, self.get_screen_center());
+                self.game.set_center_mass(repositioned[0], repositioned[1]);
+            }
+            MouseButton::Right => {
+                let repositioned = math::sub(self.mouse_position, self.get_screen_center());
+                self.game.add_flier(repositioned[0], repositioned[1], 50.0);
+            }
+            _ => (),
+        }
+    }
+
     fn handle_key_event(&mut self, key: Key) {
         match key {
             Key::NumPadPlus | Key::Plus => self.speed *= 1.25,
             Key::NumPadMinus | Key::Minus => self.speed *= 0.8,
-            _ => ()
+            _ => (),
         }
     }
 }

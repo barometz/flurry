@@ -84,6 +84,16 @@ impl Model {
         Model { fliers }
     }
 
+    pub fn add_flier(&mut self, x: f64, y: f64, top_speed: f64) {
+        let mut flier = Flier::new(
+            Velocity::new::<meter_per_second>(top_speed),
+            RotationalVelocity::new::<per_second>(0.0),
+        );
+        flier.position = [Length::new::<meter>(x), Length::new::<meter>(y)];
+        flier.target = flier.position;
+        self.fliers.push(flier);
+    }
+
     pub fn set_center_mass(&mut self, x: f64, y: f64) {
         for flier in &mut self.fliers {
             flier.target = [Length::new::<meter>(x), Length::new::<meter>(y)];
