@@ -1,4 +1,4 @@
-// The state of the art
+//! The state of the art
 
 use std::f64;
 use uom::si::f64::*;
@@ -9,14 +9,21 @@ use uom::si::frequency::hertz;
 
 use math;
 
-type RotationalVelocity = Frequency;
+/// Rotational velocity is described in rad/s, or s<sup>-1</sup>
+pub type RotationalVelocity = Frequency;
 #[allow(non_camel_case_types)]
-type per_second = hertz;
+/// Type alias for the unit of rotational velocity
+pub type per_second = hertz;
 
 #[derive(Default, Debug)]
+/// A thing that flies.
 pub struct Flier {
+    // Current position of the flier in world space
     pub position: math::Vec2d<Length>,
+    /// Current rotation in world space. Stored as Matrix2d only because that's easier to math on
+    /// than a number of radians.
     pub rotation: math::Matrix2d,
+    /// The "target" the flier will travel towards.
     pub target: math::Vec2d<Length>,
 
     top_speed: Velocity,
@@ -33,6 +40,7 @@ impl Flier {
         }
     }
 
+    /// Progress the position and rotation of the flier by the given amount of time.
     pub fn progress(&mut self, dt: Time) {
         let to_target = math::sub(self.target, self.position);
 

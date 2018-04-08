@@ -1,4 +1,4 @@
-// Handles events and modifies the game state
+//! Handles events and modifies the game state
 
 use piston::input::GenericEvent;
 use model;

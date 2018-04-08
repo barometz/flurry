@@ -1,5 +1,5 @@
-// Generic math helpers, mostly for the model. Much of this is re-exporting parts of the piston
-// graphics::math module.
+//! Generic math helpers, mostly for the model. Much of this is re-exporting parts of the piston
+//! graphics::math module.
 
 pub use graphics::math::{add, orient, sub, Matrix2d, Vec2d};
 use std::ops::Mul;

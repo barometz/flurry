@@ -1,4 +1,4 @@
-// Takes a controller and presents it on the screen
+//! Takes a controller and presents it on the screen
 
 use graphics::{Context, Graphics};
 use graphics::math;
