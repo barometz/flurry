@@ -2,7 +2,7 @@
 
 use graphics::{Context, Graphics};
 use graphics::math;
-use graphics::types;
+use graphics::types::{Color, Polygon};
 use graphics;
 
 use piston::input::RenderArgs;
@@ -26,8 +26,8 @@ impl View {
     pub fn draw<G: Graphics>(&self, controller: &Controller, c: &Context, g: &mut G) {
         use graphics::Transformed;
 
-        let poly: types::Polygon = &[[-7.5, -5.0], [-7.5, 5.0], [7.5, 0.0]];
-        const RED: [f32; 4] = [1.0, 0.0, 0.0, 1.0];
+        let poly: Polygon = &[[-7.5, -5.0], [-7.5, 5.0], [7.5, 0.0]];
+        const RED: Color = [1.0, 0.0, 0.0, 1.0];
 
         for flier in &controller.game.fliers {
             let transform = self.get_world_transform(controller, c)

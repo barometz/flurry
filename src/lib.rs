@@ -5,5 +5,6 @@ extern crate vecmath;
 
 pub mod model;
 pub mod controller;
+pub mod flier;
 pub mod view;
 mod math;

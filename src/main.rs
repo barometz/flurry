@@ -1,3 +1,7 @@
+#![deny(missing_docs)]
+
+//! Entry point for flurry.
+
 extern crate glutin_window;
 extern crate graphics;
 extern crate opengl_graphics;
@@ -19,7 +23,7 @@ fn main() {
     let mut window: GlutinWindow = WindowSettings::new("flurry", [640, 480])
         .opengl(opengl)
         .exit_on_esc(true)
-        .samples(1)
+        .samples(2)
         .srgb(false)
         .build()
         .unwrap();
